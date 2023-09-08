@@ -1,0 +1,55 @@
+.dollar-container {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    justify-items: center;
+    gap: 0px 20px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.dollar-title {
+    grid-column: 1 / span 2;
+    grid-row: 1;
+}
+
+.dollar-buy {
+    border: 1px solid white;
+    border-radius: 10px;
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.dollar-buy-title {
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.dollar-buy-content {
+    margin: 10px;
+}
+
+.dollar-sell {
+    border: 1px solid white;
+    border-radius: 10px;
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.dollar-sell-title {
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.dollar-sell-content {
+    margin: 10px;
+}

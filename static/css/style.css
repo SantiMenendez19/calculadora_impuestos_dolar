@@ -1,0 +1,44 @@
+@import "total-price.css";
+@import "taxes.css";
+@import "dollar.css";
+
+body {
+    background-color: rgb(30, 30, 30);
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    color: rgb(181, 181, 181);
+    min-height: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.debug {
+    border: 2px solid red;
+}
+
+.divisor {
+    width: 80%;
+    border: 1px solid rgb(30, 30, 30);
+}
+
+.main-title {
+    text-align: center;
+    font-size: 40px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.main-title-label {
+    margin: 20px;
+}
+
+footer {
+    clear: both;
+    position: absolute;
+    font-size: 15px;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}

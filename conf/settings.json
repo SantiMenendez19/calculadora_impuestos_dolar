@@ -1,0 +1,6 @@
+{
+    "dolar_api_html" : "https://www.dolarsi.com/api/api.php?type=valoresprincipales",
+    "tax_pais" : 0.30,
+    "tax_ganancias" : 0.35,
+    "interval_seconds_update": 180
+}

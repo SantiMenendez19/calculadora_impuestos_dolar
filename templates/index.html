@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora de Impuestos al Dolar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='icon_dolar.png')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css')}}">
+    <meta property="og:title" content="Calculadora de impuestos al dolar" />
+    <meta property="og:description"
+        content="Calcula el costo real en pesos argentinos con los impuestos implicados al dolar y servicios externos" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ url_for('view_home')}}" />
+    <meta property="og:image" content="{{ url_for('static', filename='icon_dolar.png')}}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <article>
+        <!-- Title -->
+        <section class="main-title">
+            <h1 class="main-title-label">Calculadora de Impuestos al Dolar</h1>
+        </section>
+        <!-- Prices -->
+        <section class="total-price-container">
+            <div class="total-price-label-1">
+                <span><b>Ingrese el costo en USD del producto o servicio que va a comprar</b></span>
+            </div>
+            <form class="total-price-form" action="/" method="POST" id="calculate-form" enctype="multipart/form-data">
+                <span class="total-price-form-label"><b>$</b></span>
+                <input class="total-price-form-input" type="entry" name="cost_product_usd" id="cost_product_usd"
+                    placeholder="0.0" value="{{ cost_product_usd }}"></input>
+                <button class="total-price-form-submit" type="submit" name="submit_calculator">Calcular</button>
+            </form>
+            <div class="total-price-subtotals-container">
+                <div class="total-price-subtotals-tax-ganancias-label">
+                    <span><b>Impuesto a las ganancias</b></span>
+                </div>
+                <div class="total-price-subtotals-tax-ganancias-value">
+                    <span id="cost_ganancias">&nbsp;</span>
+                </div>
+                <div class="total-price-subtotals-tax-pais-label">
+                    <span><b>Impuesto pais</b></span>
+                </div>
+                <div class="total-price-subtotals-tax-pais-value">
+                    <span id="cost_pais">&nbsp;</span>
+                </div>
+                <div class="total-price-subtotals-subtotal-label">
+                    <span><b>Subtotal (sin impuestos)</b></span>
+                </div>
+                <div class="total-price-subtotals-subtotal-value">
+                    <span id="subtotal">&nbsp;</span>
+                </div>
+            </div>
+            <div class="total-price-label-2">
+                <span><b>Precio final con impuestos</b></span>
+            </div>
+            <div class="total-price-value">
+                <span id="cost_total_usd"></span><span id="cost_total_ars">&nbsp;</span>
+            </div>
+            <div class="total-price-error">
+                <span id="cost_total_error">&nbsp;</span>
+            </div>
+        </section>
+        <hr class="divisor">
+        <!-- Taxes -->
+        <section class="taxes-container">
+            <div class="taxes-title">
+                <h3>Impuestos cobrados en el costo del producto</h3>
+            </div>
+            <div class="taxes-tax-ganancias">
+                <h5 class="taxes-tax-ganancias-title">Impuesto a las ganancias</h5>
+                <p class="taxes-tax-ganancias-content">Recargo 35% del costo inicial del producto comprado con moneda
+                    extranjera.
+                </p>
+            </div>
+            <div class="taxes-tax-pais">
+                <h5 class="taxes-tax-pais-title">Impuesto PAIS</h5>
+                <p class="taxes-tax-pais-content">Recargo del 30% del costo inicial del producto comprado con moneda
+                    extranjera.</p>
+            </div>
+        </section>
+        <hr class="divisor">
+        <!-- Dollar value -->
+        <section class="dollar-container">
+            <div class="dollar-title">
+                <h3>DOLAR OFICIAL</h3>
+            </div>
+            <div class="dollar-buy">
+                <h5 class="dollar-buy-title">COMPRA</h5>
+                <p class="dollar-buy-content">
+                    <span>$1 USD =</span>
+                    <b>$<span id="usd_oficial_compra"></span> ARS</b>
+                </p>
+            </div>
+            <div class="dollar-sell">
+                <h5 class="dollar-sell-title">VENTA</h5>
+                <p class="dollar-sell-content">
+                    <span>$1 USD =</span>
+                    <b>$<span id="usd_oficial_venta"></span> ARS</b>
+                </p>
+            </div>
+        </section>
+    </article>
+    <hr class="divisor">
+    <footer>
+        <section>
+            <div>
+                <span>Esta pagina fue hecha como proyecto de aprendizaje de Flask, JavaScript, CSS y Ajax</span>
+            </div>
+            <div>
+                <b><span id="current_time"></span></b>
+            </div>
+        </section>
+    </footer>
+</body>
+
+<!-- JS Scripts -->
+<script type="text/javascript">
+    // Ajax calculate taxes
+    $(document).on('submit', '#calculate-form', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: "{{ url_for('post_calculate_taxes') }}",
+            data: {
+                cost_product_usd: $("#cost_product_usd").val(),
+                usd_oficial_venta: $("#usd_oficial_venta").text()
+            },
+            success: function (response) {
+                if (response.cost_total_ars != null) {
+                    if (response.cost_total_ars >= 0.0) {
+                        $("#cost_total_ars").text("$ " + response.cost_total_ars.toString() + " ARS");
+                        $("#cost_total_usd").text("$ " + $("#cost_product_usd").val() + " USD == ");
+                        $("#cost_ganancias").text("$ " + response.cost_ganancias.toString() + " ARS");
+                        $("#cost_pais").text("$ " + response.cost_pais.toString() + " ARS");
+                        $("#subtotal").text("$ " + response.subtotal.toString() + " ARS");
+                        $("#cost_total_error").text("\xa0"); 
+                    }
+                }
+                else {
+                    $("#cost_total_error").text(response.error_msg);
+                }
+            }
+        })
+    });
+    // Ajax update usd
+    function update_usd() {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url_for('get_conversion_usd') }}",
+            success: function (response) {
+                //console.log(response.compra)
+                $("#usd_oficial_compra").text(response.compra.toString());
+                $("#usd_oficial_venta").text(response.venta.toString());
+            }
+        }).then(function () {
+            setTimeout(update_usd, 1000 * "{{ interval_seconds }}")
+        })
+    };
+    // Ajax update_time
+    function update_time() {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url_for('get_time') }}",
+            success: function (response) {
+                $("#current_time").text("Actualizado a las: " + response.time);
+            }
+        }).then(function () {
+            setTimeout(update_time, 1000 * "{{ interval_seconds }}")
+        })
+    };
+
+    update_time();
+    update_usd();
+</script>
+
+</html>

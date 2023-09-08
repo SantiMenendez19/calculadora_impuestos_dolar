@@ -1,0 +1,57 @@
+.taxes-container {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    justify-items: center;
+    gap: 0px 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.taxes-title {
+    grid-column: 1 / span 2;
+    grid-row: 1;
+}
+
+.taxes-tax-ganancias {
+    border: 1px solid white;
+    border-radius: 10px;
+    grid-column: 1;
+    grid-row: 2;
+    width: 60%;
+}
+
+.taxes-tax-ganancias-title {
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.taxes-tax-ganancias-content {
+    margin: 10px;
+}
+
+.taxes-tax-pais {
+    border: 1px solid white;
+    border-radius: 10px;
+    grid-column: 2;
+    grid-row: 2;
+    width: 60%;
+}
+
+.taxes-tax-pais-title {
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.taxes-tax-pais-content {
+    margin: 10px;
+}
