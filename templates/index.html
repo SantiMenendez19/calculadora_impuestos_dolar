@@ -141,6 +141,9 @@
                         $("#cost_pais").text("$ " + response.cost_pais.toString() + " ARS");
                         $("#subtotal").text("$ " + response.subtotal.toString() + " ARS");
                         $("#cost_total_error").text("\xa0"); 
+
+                        let subtotal_container = document.getElementsByClassName("total-price-subtotals-container")[0];
+                        subtotal_container.style.display = "grid";
                     }
                 }
                 else {

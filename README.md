@@ -3,6 +3,7 @@
 ## Descripcion
 
 Proyecto simple de una calculadora para obtener el valor real en pesos a pagar por un servicio o producto del exterior.
+Usado mas que nada como practica para diseño en CSS y porque lo tenia guardado hace tiempo.
 
 ## Utilizacion
 
@@ -20,7 +21,7 @@ Esto instalara los modulos necesarios para la ejecucion del proyecto
 
 3 - Abrir el navegador e ingresar a la direccion localhost:8000
 
-## Documentacion adicional para el grid
+## Documentacion adicional (tutoriales para grid)
 
 - <https://dinahosting.com/blog/css-grid-ventajas-y-primeros-pasos/>
 - <https://coryrylan.com/blog/how-to-center-in-css-with-css-grid>

@@ -43,10 +43,19 @@
     color: white;
 }
 
+.total-price-form-submit:hover {
+    font-size: 20px;
+    background: transparent;
+    border: 1px solid white;
+    color: black;
+    background-color: white;
+    cursor: pointer;
+}
+
 .total-price-subtotals-container {
     grid-column: 1;
     grid-row: 3;
-    display: grid;
+    display: none;
     grid-template-columns: auto;
     grid-template-rows: auto;
     margin-top: 3%;
